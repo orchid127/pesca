@@ -10,8 +10,9 @@ to use NextJs for the back-end since it's well intergated with React.
 ## To do list
 
 - [ ] code the components of the app
-  - [ ] home page
+  - [x] home page
   - [ ] settings page
   - [ ] history page
+- [ ] fix buttons
 - [ ] configure a database for session history
 - [ ] deploy app
