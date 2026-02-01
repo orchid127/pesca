@@ -1,0 +1,14 @@
+server/node_modules
+server/db.js
+
+# Environment variables
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
