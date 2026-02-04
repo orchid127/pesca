@@ -1,42 +1,78 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef } from "react";
 
 function Pomodoro() {
 
-    const [timer, setTimer] = useState(30);
+    const [timeLeft, setTimeLeft] = useState(1500);
     const [isRunning, setIsRunning] = useState(false);
+    const [mode, setMode] = useState("work");
+    const intervalRef = useRef<any>(null); // value of the timer
 
-    const convertTime = (time: number): string => {
-        const hours = Math.floor(time / 3600);
-        const minutes = Math.floor((time - hours * 60) / 60);
-        const seconds = time % 60;
-        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-    };
-
-    useEffect(() => {
-        // stops if the timer isn't running
-        if (!isRunning) return;
-
-        const intervalId = setInterval(() => {
-            setTimer((prev) => {
-                if (prev <= 1) {
-                    setIsRunning(false);
-                    return 0;
+    const startTimer = () => {
+        // returns the time minus one second, each second
+        intervalRef.current = setInterval(() => {
+            setTimeLeft((prevTimeLeft) => {
+                if (prevTimeLeft !== 0) {
+                    return prevTimeLeft - 1;
                 }
-                return prev - 1;
+                // clears the current interval
+                clearInterval(intervalRef.current);
+
+                // change the timer
+                if (mode === "work") {
+                    // logs the session if in work mode
+                    logSession();
+                    intervalRef.current = 300;
+                    setMode("pause");
+                }
+                else {
+                    intervalRef.current = 1500;
+                    setMode("work");
+                }
+
+                return 0;
             });
         }, 1000);
+    }
 
 
-        return () => clearInterval(intervalId);
-    }, [isRunning, timer]);
+    const pauseTimer = () => {
+        // clear existing interval
+        clearInterval(intervalRef.current);
+    };
 
     const startPauseTimer = () => {
+        if (isRunning) {
+            pauseTimer();
+        } else {
+            startTimer();
+        }
         setIsRunning(!isRunning);
     };
 
     const resetTimer = () => {
+        clearInterval(intervalRef.current);
         setIsRunning(false);
-        setTimer(30);
+        if (mode === "work") {
+            setTimeLeft(1500);
+        }
+        else {
+            setTimeLeft(300);
+        }
+
+    }
+
+    const skipTimer = () => {
+        clearInterval(intervalRef.current);
+        setIsRunning(false);
+
+        if (mode === "work") {
+            setMode("pause");
+            setTimeLeft(300);
+        }
+        else {
+            setMode("work");
+            setTimeLeft(1500);
+        }
     }
 
     const logSession = async () => {
@@ -61,19 +97,24 @@ function Pomodoro() {
         }
     }
 
-    useEffect(() => {
-        if (timer === 0 && !isRunning) {
-            logSession();
-        }
-    }, [timer, isRunning]);
-
     return (
-        <div>
-            <p>session ongoing</p>
-            <h1>{convertTime(timer)}</h1>
-            <button type="button" onClick={startPauseTimer}>start</button>
-            <button type="button" onClick={resetTimer}>reset</button>
-        </div>
+        <>
+            <div className="absolute bottom-0 pb-5">
+                <div className="text-[20rem] text-[#3F7BD4] underline italic">
+                    <span>{String(Math.floor(timeLeft / 60)).padStart(2, "0")}</span>
+                    <span>:</span>
+                    <span>{String(timeLeft % 60).padStart(2, "0")}</span>
+                </div>
+                <div className="">
+                    <button type="button" onClick={resetTimer} className="text-[2rem] text-[#EA5DA9] hover:text-[#F8C2DF] bg-[#F8C2DF] hover:bg-[#EA5DA9] px-[0.75rem] py-[0.25rem]
+                rounded-tl-lg rounded-br-lg border border-[#EA5DA9] hover:border-[#F8C2DF]">reset</button>
+                    <button type="button" onClick={startPauseTimer} className="text-[2rem] text-[#EA5DA9] hover:text-[#F8C2DF] bg-[#F8C2DF] hover:bg-[#EA5DA9] px-[0.75rem] py-[0.25rem]
+                rounded-tl-lg rounded-br-lg border border-[#EA5DA9] hover:border-[#F8C2DF]">start</button>
+                    <button type="button" onClick={skipTimer} className="text-[2rem] text-[#EA5DA9] hover:text-[#F8C2DF] bg-[#F8C2DF] hover:bg-[#EA5DA9] px-[0.75rem] py-[0.25rem]
+                rounded-tl-lg rounded-br-lg border border-[#EA5DA9] hover:border-[#F8C2DF]">skip</button>
+                </div>
+            </div>
+        </>
     )
 }
 
