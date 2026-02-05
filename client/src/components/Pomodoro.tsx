@@ -1,6 +1,12 @@
 import React, { useState, useRef } from "react";
 
-function Pomodoro() {
+interface PomodoroProps {
+    work: number,
+    pause: number,
+    longPause: number
+}
+
+function Pomodoro({ work, pause, longPause }: PomodoroProps) {
 
     const [timeLeft, setTimeLeft] = useState(1500);
     const [isRunning, setIsRunning] = useState(false);
