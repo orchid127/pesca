@@ -3,33 +3,34 @@ import TimerControl from "./TimerControl";
 
 interface PopupFormProps {
     isOpen: boolean,
-    setOpen: (open: boolean) => void;
+    currWork: number,
+    currPause: number,
+    currLongPause: number,
+    onClose: () => void;
+    onSave: (work: number, pause: number, longPause: number) => void;
 }
 
-function PopupForm(props: PopupFormProps) {
-    const [work, setWork] = useState(25);
-    const [pause, setPause] = useState(5);
-    const [longPause, setLongPause] = useState(15);
+function PopupForm({ isOpen, currWork, currPause, currLongPause, onClose, onSave }: PopupFormProps) {
+    const [draftWork, setWork] = useState(currWork);
+    const [draftPause, setPause] = useState(currPause);
+    const [draftLongPause, setLongPause] = useState(currLongPause);
 
-    const updateWork = (newWork: number) => {
-        setWork(newWork);
-    };
-
-    const updatePause = (newPause: number) => {
-        setPause(newPause);
-    }
-
-    const updateLongPause = (newLongPause: number) => {
-        setLongPause(newLongPause);
+    const saveSettings = () => {
+        onSave(draftWork, draftPause, draftLongPause);
+        onClose();
     }
 
     const closePopup = () => {
-        props.setOpen(false);
+        setWork(currWork);
+        setPause(currPause);
+        setLongPause(currLongPause);
+        onClose();
     }
 
+    // non displayed
+    if (!isOpen) return null;
 
-    if (!props.isOpen) return null;
-
+    // displayed
     return (
         <>
             <div className="flex fixed top-0 left-0 w-[100%] h-[100%] justify-center items-center">
@@ -37,25 +38,25 @@ function PopupForm(props: PopupFormProps) {
 
                     <div className="flex items-center gap-[5rem]">
                         <p className="text-[#3F7BD4] text-[2rem]">session</p>
-                        <TimerControl time={work} timeChange={updateWork} />
+                        <TimerControl time={draftWork} timeChange={setWork} />
                     </div>
 
                     <div className="flex items-center gap-[5rem]">
                         <p className="text-[#3F7BD4] text-[2rem]">break</p>
                         <div className="justify-left">
-                            <TimerControl time={pause} timeChange={updatePause} />
+                            <TimerControl time={draftPause} timeChange={setPause} />
                         </div>
                     </div>
 
                     <div className="flex items-center gap-[5rem]">
                         <p className="text-[#3F7BD4] text-[2rem]">long break</p>
                         <div>
-                            <TimerControl time={longPause} timeChange={updateLongPause} />
+                            <TimerControl time={draftLongPause} timeChange={setLongPause} />
                         </div>
 
                     </div>
                     <div className="flex justify-center items-center mt-[2rem]">
-                        <button type="button" onClick={closePopup} className="text-[2rem] text-[#3F7BD4] hover:text-[#FFFFFF] hover:bg-[#C8DEFE] border border-[#C8DEFE] px-[2rem]">ok !</button>
+                        <button type="button" onClick={saveSettings} className="text-[2rem] text-[#3F7BD4] hover:text-[#FFFFFF] hover:bg-[#C8DEFE] border border-[#C8DEFE] px-[2rem]">ok !</button>
                         <button type="button" onClick={closePopup} className="text-[2rem] text-[#3F7BD4] hover:text-[#FFFFFF] hover:bg-[#C8DEFE] border border-[#C8DEFE] px-[2rem]">cancel...</button>
                     </div>
                 </div >

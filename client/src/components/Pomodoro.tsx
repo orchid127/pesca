@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 interface PomodoroProps {
     work: number,
@@ -7,11 +7,18 @@ interface PomodoroProps {
 }
 
 function Pomodoro({ work, pause, longPause }: PomodoroProps) {
+    console.log("Pomodoro received:", work, pause, longPause);
 
-    const [timeLeft, setTimeLeft] = useState(1500);
+    const [timeLeft, setTimeLeft] = useState(work * 60);
     const [isRunning, setIsRunning] = useState(false);
     const [mode, setMode] = useState("work");
     const intervalRef = useRef<any>(null); // value of the timer
+
+    useEffect(() => {
+        // Only update if timer is not currently running
+        setTimeLeft(work * 60);
+    }, [work, pause, longPause, isRunning]);
+
 
     const startTimer = () => {
         // returns the time minus one second, each second
@@ -27,11 +34,11 @@ function Pomodoro({ work, pause, longPause }: PomodoroProps) {
                 if (mode === "work") {
                     // logs the session if in work mode
                     logSession();
-                    intervalRef.current = 300;
+                    setTimeLeft(pause * 60);
                     setMode("pause");
                 }
                 else {
-                    intervalRef.current = 1500;
+                    setTimeLeft(work * 60);
                     setMode("work");
                 }
 
@@ -59,10 +66,10 @@ function Pomodoro({ work, pause, longPause }: PomodoroProps) {
         clearInterval(intervalRef.current);
         setIsRunning(false);
         if (mode === "work") {
-            setTimeLeft(1500);
+            setTimeLeft(work * 60);
         }
         else {
-            setTimeLeft(300);
+            setTimeLeft(pause * 60);
         }
 
     }
@@ -73,11 +80,11 @@ function Pomodoro({ work, pause, longPause }: PomodoroProps) {
 
         if (mode === "work") {
             setMode("pause");
-            setTimeLeft(300);
+            setTimeLeft(pause * 60);
         }
         else {
             setMode("work");
-            setTimeLeft(1500);
+            setTimeLeft(work * 60);
         }
     }
 
@@ -106,6 +113,7 @@ function Pomodoro({ work, pause, longPause }: PomodoroProps) {
     return (
         <>
             <div className="absolute bottom-0 pb-5">
+                <p>{mode === "work" ? "let's get to work !" : "break time"}</p>
                 <div className="text-[20rem] text-[#3F7BD4] underline italic">
                     <span>{String(Math.floor(timeLeft / 60)).padStart(2, "0")}</span>
                     <span>:</span>
@@ -115,7 +123,7 @@ function Pomodoro({ work, pause, longPause }: PomodoroProps) {
                     <button type="button" onClick={resetTimer} className="text-[2rem] text-[#EA5DA9] hover:text-[#F8C2DF] bg-[#F8C2DF] hover:bg-[#EA5DA9] px-[0.75rem] py-[0.25rem]
                 rounded-tl-lg rounded-br-lg border border-[#EA5DA9] hover:border-[#F8C2DF]">reset</button>
                     <button type="button" onClick={startPauseTimer} className="text-[2rem] text-[#EA5DA9] hover:text-[#F8C2DF] bg-[#F8C2DF] hover:bg-[#EA5DA9] px-[0.75rem] py-[0.25rem]
-                rounded-tl-lg rounded-br-lg border border-[#EA5DA9] hover:border-[#F8C2DF]">start</button>
+                rounded-tl-lg rounded-br-lg border border-[#EA5DA9] hover:border-[#F8C2DF]">{isRunning ? 'stop' : 'start'}</button>
                     <button type="button" onClick={skipTimer} className="text-[2rem] text-[#EA5DA9] hover:text-[#F8C2DF] bg-[#F8C2DF] hover:bg-[#EA5DA9] px-[0.75rem] py-[0.25rem]
                 rounded-tl-lg rounded-br-lg border border-[#EA5DA9] hover:border-[#F8C2DF]">skip</button>
                 </div>
