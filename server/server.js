@@ -2,13 +2,14 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const pool = require("./db");
+const bcrypt = require('bcrypt')
 
 // middleware
 app.use(cors());
 app.use(express.json()); // middleware to parse JSON request bodies
 
 
-// ------ routes ------ //
+// ------ sessions ------ //
 // log a session
 app.post("/sessions", async (req, res) => {
     try {
@@ -56,6 +57,48 @@ app.delete("/sessions/:id", async (req, res) => {
 })
 
 // delete all sessions
+
+
+
+// ------ sign-in ------- //
+
+const users = []
+
+app.get('/users', (req, res) => {
+    res.json(users);
+})
+
+// adding a new user
+app.post('/users', async (req, res) => {
+    // hashing and salting the password
+    try {
+        const hasdhedPassword = await bcrypt.hash(req.body.password, 10);
+
+        const user = { name: req.body.name, password: hasdhedPassword };
+        users.push(user);
+        res.status(201).send();
+    } catch (error) {
+        res.status(500).send();
+    }
+})
+
+app.post("/users/signin", async (req, res) => {
+    const user = users.find(user => user.name = req.body.name);
+    if (user == null) {
+        return res.status.apply(400).send("Can't find user :(")
+    }
+
+    try {
+        if (await bcrypt.compare(req.body.password, user.password)) {
+            res.send("Success ! Yay :D");
+        } else {
+            res.send("Not allowed.");
+        }
+    } catch (error) {
+        res.status(500).send()
+    }
+});
+
 
 
 // listening to any modification

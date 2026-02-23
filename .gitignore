@@ -1,8 +1,10 @@
 server/node_modules
 server/db.js
+server/request.rest
 
 # Environment variables
 .env
+server/.env
 .env.local
 
 # IDE

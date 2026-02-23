@@ -16,8 +16,15 @@ function Pomodoro({ work, pause, longPause }: PomodoroProps) {
 
     useEffect(() => {
         // Only update if timer is not currently running
-        setTimeLeft(work * 60);
-    }, [work, pause, longPause, isRunning]);
+        if (!isRunning) {
+            if (mode === "work") {
+                setTimeLeft(work * 60);
+            } else if (mode === "pause") {
+                setTimeLeft(pause * 60)
+            }
+        }
+
+    }, [mode, work, pause, longPause, isRunning]);
 
 
     const startTimer = () => {
@@ -50,7 +57,9 @@ function Pomodoro({ work, pause, longPause }: PomodoroProps) {
 
     const pauseTimer = () => {
         // clear existing interval
+        setIsRunning(false);
         clearInterval(intervalRef.current);
+
     };
 
     const startPauseTimer = () => {
