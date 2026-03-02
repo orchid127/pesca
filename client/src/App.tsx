@@ -10,6 +10,7 @@ import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import PopupForm from './components/PopupForm';
 import SignUp from './pages/SignUp';
+import Profile from './pages/Profile';
 
 function App() {
 
@@ -39,10 +40,12 @@ function App() {
   return (
     <Router>
       <Navbar onOpenSettings={openPopupForm} />
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
       <PopupForm isOpen={isPopupOpen} currWork={work} currPause={pause} currLongPause={longPause} onClose={closePopupForm} onSave={updateTimers} />
     </Router>

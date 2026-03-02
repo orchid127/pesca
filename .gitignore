@@ -1,6 +1,7 @@
 server/node_modules
 server/db.js
 server/request.rest
+server/database.sql
 
 # Environment variables
 .env

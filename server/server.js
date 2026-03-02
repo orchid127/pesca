@@ -60,42 +60,51 @@ app.delete("/sessions/:id", async (req, res) => {
 
 
 
-// ------ sign-in ------- //
-
-const users = []
-
-app.get('/users', (req, res) => {
-    res.json(users);
+// ------ users------- //
+// get all users
+app.get('/users', async (req, res) => {
+    try {
+        const allUsers = await pool.query("SELECT * FROM users");
+        res.json(allUsers.rows);
+    } catch (error) {
+        console.error(error.message);
+    }
 })
 
 // adding a new user
 app.post('/users', async (req, res) => {
-    // hashing and salting the password
     try {
-        const hasdhedPassword = await bcrypt.hash(req.body.password, 10);
+        const username = req.body.username;
+        const email = req.body.email;
+        const password = req.body.password
+        const hasdhedPassword = await bcrypt.hash(password.toString(), 10); // hashing and salting the password
 
-        const user = { name: req.body.name, password: hasdhedPassword };
-        users.push(user);
-        res.status(201).send();
+        // adding user to database
+        const newUser = await pool.query("INSERT INTO users(username, email, password) VALUES($1, $2, $3) RETURNING *", [username, email, hasdhedPassword]);
+        res.json(newUser.rows[0]);
+
     } catch (error) {
-        res.status(500).send();
+        console.error(error.message);
     }
 })
 
+// signing in an existing user
 app.post("/users/signin", async (req, res) => {
-    const user = users.find(user => user.name = req.body.name);
-    if (user == null) {
-        return res.status.apply(400).send("Can't find user :(")
+    // search the user with email in req
+    const user = await pool.query("SELECT * FROM users WHERE email = ($1)", [req.body.email]);
+    if (user.rows.length === 0) {
+        return res.status(400).send("Can't find user :(");
     }
 
+    // checks if the password is correct
     try {
-        if (await bcrypt.compare(req.body.password, user.password)) {
+        if (await bcrypt.compare(req.body.password, user.rows[0].password)) {
             res.send("Success ! Yay :D");
         } else {
-            res.send("Not allowed.");
+            res.send("Not allowed : wrong password.");
         }
     } catch (error) {
-        res.status(500).send()
+        console.error(error.message);
     }
 });
 
