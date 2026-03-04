@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 
 interface PomodoroProps {
     work: number,
@@ -7,25 +7,14 @@ interface PomodoroProps {
 }
 
 function Pomodoro({ work, pause, longPause }: PomodoroProps) {
+    // testing
     console.log("Pomodoro received:", work, pause, longPause);
 
     const [timeLeft, setTimeLeft] = useState(work * 60);
     const [isRunning, setIsRunning] = useState(false);
     const [mode, setMode] = useState("work");
+    const [numberSessions, setNumberSessions] = useState(0);
     const intervalRef = useRef<any>(null); // value of the timer
-
-    useEffect(() => {
-        // Only update if timer is not currently running
-        if (!isRunning) {
-            if (mode === "work") {
-                setTimeLeft(work * 60);
-            } else if (mode === "pause") {
-                setTimeLeft(pause * 60)
-            }
-        }
-
-    }, [mode, work, pause, longPause, isRunning]);
-
 
     const startTimer = () => {
         // returns the time minus one second, each second
@@ -42,7 +31,17 @@ function Pomodoro({ work, pause, longPause }: PomodoroProps) {
                     // logs the session if in work mode
                     logSession();
                     setTimeLeft(pause * 60);
-                    setMode("pause");
+
+                    // checks if the user did 3 work sessions
+                    if (numberSessions !== 3) {
+                        setMode("pause");
+                        setNumberSessions(numberSessions + 1);
+                    } else {
+                        setMode("long pause");
+                        setNumberSessions(0);
+                    }
+
+                    console.log(numberSessions);
                 }
                 else {
                     setTimeLeft(work * 60);
