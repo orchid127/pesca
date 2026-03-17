@@ -1,11 +1,11 @@
 import React from "react";
 
-interface TimerControlProps {
+interface SettingsControlProps {
     time: number;
     timeChange: (newTime: number) => void;
 }
 
-function TimerControl({ time, timeChange }: TimerControlProps) {
+function SettingsControl({ time, timeChange }: SettingsControlProps) {
 
     const decrementTime = () => {
         if (time > 0) {
@@ -28,4 +28,4 @@ function TimerControl({ time, timeChange }: TimerControlProps) {
     )
 }
 
-export default TimerControl;
+export default SettingsControl;

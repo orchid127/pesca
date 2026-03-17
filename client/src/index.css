@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: KiwiSoda;
+    src: url("../public/fonts/KiwiSoda.ttf");
+}
+
+@font-face {
+    font-family: ArialNarrow;
+    src: url("../public/fonts/arialnarrow.ttf");
+}

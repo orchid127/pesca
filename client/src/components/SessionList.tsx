@@ -37,13 +37,12 @@ function SessionList() {
     return (
         <>
             <div>
-                <h1>Your sessions</h1>
-                <table>
+                <table className="w-[100%] border-collapse border border-[#3F7BD4]">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Session length</th>
-                            <th>Date</th>
+                            <th className="border border-[#3F7BD4]">ID</th>
+                            <th className="border border-[#3F7BD4]">Session length</th>
+                            <th className="border border-[#3F7BD4]">Date</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,10 +52,10 @@ function SessionList() {
                         <td>30/01/2026 18:56</td>
                     </tr>*/}
                         {sessions.map(session => (
-                            <tr>
-                                <td>{session.session_id}</td>
-                                <td>{session.session_length}</td>
-                                <td>{session.session_date}</td>
+                            <tr className="odd:bg-[#C8DEFE]">
+                                <td className="border border-[#3F7BD4]">{session.session_id}</td>
+                                <td className="border border-[#3F7BD4]">{session.session_length}</td>
+                                <td className="border border-[#3F7BD4]">{session.session_date}</td>
                             </tr>
                         ))}
                     </tbody>

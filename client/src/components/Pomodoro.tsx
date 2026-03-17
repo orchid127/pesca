@@ -119,24 +119,24 @@ function Pomodoro({ work, pause, longPause }: PomodoroProps) {
     }
 
     return (
-        <>
-            <div className="absolute bottom-0 pb-5">
-                <p>{mode === "work" ? "let's get to work !" : "break time"}</p>
-                <div className="text-[20rem] text-[#3F7BD4] underline italic">
-                    <span>{String(Math.floor(timeLeft / 60)).padStart(2, "0")}</span>
-                    <span>:</span>
-                    <span>{String(timeLeft % 60).padStart(2, "0")}</span>
+        <div className="h-full border border-[#F7C0DD] border-[2px] rounded-[10px]">
+            <div className="absolute bottom-8 m-5">
+                <p className="text-[#3F7BD4] text-[2rem] font-arialnarrow ml-4 mb-0">{mode === "work" ? "let's get to work !" : "break time"}</p>
+                <div className="text-[#3F7BD4] text-[20rem] -mt-10 leading-none">
+                    <span className="font-arialnarrow font-bold italic">{String(Math.floor(timeLeft / 60)).padStart(2, "0")}</span>
+                    <span className="font-arialnarrow font-bold italic mr-5">:</span>
+                    <span className="font-arialnarrow">{String(timeLeft % 60).padStart(2, "0")}</span>
                 </div>
-                <div className="">
-                    <button type="button" onClick={resetTimer} className="text-[2rem] text-[#EA5DA9] hover:text-[#F8C2DF] bg-[#F8C2DF] hover:bg-[#EA5DA9] px-[0.75rem] py-[0.25rem]
-                rounded-tl-lg rounded-br-lg border border-[#EA5DA9] hover:border-[#F8C2DF]">reset</button>
-                    <button type="button" onClick={startPauseTimer} className="text-[2rem] text-[#EA5DA9] hover:text-[#F8C2DF] bg-[#F8C2DF] hover:bg-[#EA5DA9] px-[0.75rem] py-[0.25rem]
-                rounded-tl-lg rounded-br-lg border border-[#EA5DA9] hover:border-[#F8C2DF]">{isRunning ? 'stop' : 'start'}</button>
-                    <button type="button" onClick={skipTimer} className="text-[2rem] text-[#EA5DA9] hover:text-[#F8C2DF] bg-[#F8C2DF] hover:bg-[#EA5DA9] px-[0.75rem] py-[0.25rem]
-                rounded-tl-lg rounded-br-lg border border-[#EA5DA9] hover:border-[#F8C2DF]">skip</button>
+                <div className="flex gap-5">
+                    <button type="button" onClick={resetTimer} className="text-[2rem] text-[#EA5DA9] font-kiwisoda hover:text-[#F8C2DF] bg-[#F8C2DF] hover:bg-[#EA5DA9] px-[0.75rem] py-[0.25rem]
+                rounded-lg">reset</button>
+                    <button type="button" onClick={startPauseTimer} className="text-[2rem] text-[#EA5DA9] font-kiwisoda hover:text-[#F8C2DF] bg-[#F8C2DF] hover:bg-[#EA5DA9] px-[0.75rem] py-[0.25rem]
+                rounded-lg">{isRunning ? 'stop' : 'start'}</button>
+                    <button type="button" onClick={skipTimer} className="text-[2rem] text-[#EA5DA9] font-kiwisoda hover:text-[#F8C2DF] bg-[#F8C2DF] hover:bg-[#EA5DA9] px-[0.75rem] py-[0.25rem]
+                rounded-lg">skip</button>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

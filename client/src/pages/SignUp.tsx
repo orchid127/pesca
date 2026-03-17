@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Validation from "../components/SignUpValidation";
+import Validation from "../utils/SignUpValidation";
 
 interface SignupErrors {
     username?: string;

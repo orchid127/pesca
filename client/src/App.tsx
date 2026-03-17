@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
-import PopupForm from './components/PopupForm';
+import PomodoroSettings from './components/PomodoroSettings';
 import SignUp from './pages/SignUp';
 import Profile from './pages/Profile';
 
@@ -39,15 +39,20 @@ function App() {
 
   return (
     <Router>
-      <Navbar onOpenSettings={openPopupForm} />
+      <div className='flex flex-col h-screen'>
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/profile" element={<Profile />} />
-      </Routes>
-      <PopupForm isOpen={isPopupOpen} currWork={work} currPause={pause} currLongPause={longPause} onClose={closePopupForm} onSave={updateTimers} />
+        <Navbar onOpenSettings={openPopupForm} />
+
+        <div className='flex-1'>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/sign-in" element={<SignIn />} />
+            <Route path="/sign-up" element={<SignUp />} />
+            <Route path="/profile" element={<Profile />} />
+          </Routes>
+        </div>
+      </div>
+      <PomodoroSettings isOpen={isPopupOpen} currWork={work} currPause={pause} currLongPause={longPause} onClose={closePopupForm} onSave={updateTimers} />
     </Router>
 
   );

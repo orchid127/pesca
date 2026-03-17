@@ -8,9 +8,9 @@ function Home() {
     const [longPause, setLongPause] = useState(15);
 
     return (
-        <>
+        <div className="px-5 pb-5 w-[100%] h-full">
             <Pomodoro work={work} pause={pause} longPause={longPause} />
-        </>
+        </div>
     )
 }
 
