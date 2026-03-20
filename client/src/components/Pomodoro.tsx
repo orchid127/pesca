@@ -119,10 +119,10 @@ function Pomodoro({ work, pause, longPause }: PomodoroProps) {
     }
 
     return (
-        <div className="h-full border border-[#F7C0DD] border-[2px] rounded-[10px]">
-            <div className="absolute bottom-8 m-5">
-                <p className="text-[#3F7BD4] text-[2rem] font-arialnarrow ml-4 mb-0">{mode === "work" ? "let's get to work !" : "break time"}</p>
-                <div className="text-[#3F7BD4] text-[20rem] -mt-10 leading-none">
+        <div className="flex flex-col h-full border border-[#F7C0DD] border-[2px] rounded-[10px]">
+            <p className="text-[#3F7BD4] text-right text-[1.5rem] lg:text-[2rem] font-arialnarrow m-5">{mode === "work" ? "let's get to work !" : "break time"}</p>
+            <div className="mt-auto m-5">
+                <div className="text-[#3F7BD4] text-[12.5rem] md:text-[15rem] lg:text-[20rem] -mt-10 leading-none">
                     <span className="font-arialnarrow font-bold italic">{String(Math.floor(timeLeft / 60)).padStart(2, "0")}</span>
                     <span className="font-arialnarrow font-bold italic mr-5">:</span>
                     <span className="font-arialnarrow">{String(timeLeft % 60).padStart(2, "0")}</span>

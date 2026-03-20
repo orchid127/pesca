@@ -33,30 +33,30 @@ function PopupForm({ isOpen, currWork, currPause, currLongPause, onClose, onSave
     // displayed
     return (
         <div onClick={closePopup} className="flex fixed top-0 left-0 w-[100%] h-[100%] justify-center items-center">
-            <div onClick={(e) => e.stopPropagation()} className="p-[2.5rem] bg-[#FFFFFF] border border-[#3F7BD4] rounded-[1.5rem] justify-center">
+            <div onClick={(e) => e.stopPropagation()} className="p-[2.5rem] bg-[#E9EDF2]/25 border border-[#3F7BD4] backdrop-blur-lg rounded-[1.5rem] justify-center">
+                <div className="flex flex-row gap-5 justify-center">
+                    <div className="items-center gap-[5rem]">
+                        <p className="text-[#3F7BD4] text-[2rem] font-arialnarrow pb-2">session</p>
+                        <p className="text-[#3F7BD4] text-[2rem] font-arialnarrow pb-2">break</p>
+                        <p className="text-[#3F7BD4] text-[2rem] font-arialnarrow">long break</p>
+                    </div>
 
-                <div className="flex items-center gap-[5rem]">
-                    <p className="text-[#3F7BD4] text-[2rem]">session</p>
-                    <SettingsControl time={draftWork} timeChange={setWork} />
-                </div>
-
-                <div className="flex items-center gap-[5rem]">
-                    <p className="text-[#3F7BD4] text-[2rem]">break</p>
-                    <div className="justify-left">
-                        <SettingsControl time={draftPause} timeChange={setPause} />
+                    <div className="justify-self-end">
+                        <div className="pb-2">
+                            <SettingsControl time={draftWork} timeChange={setWork} />
+                        </div>
+                        <div className="pb-2">
+                            <SettingsControl time={draftPause} timeChange={setPause} />
+                        </div>
+                        <div className="">
+                            <SettingsControl time={draftLongPause} timeChange={setLongPause} />
+                        </div>
                     </div>
                 </div>
 
-                <div className="flex items-center gap-[5rem]">
-                    <p className="text-[#3F7BD4] text-[2rem]">long break</p>
-                    <div>
-                        <SettingsControl time={draftLongPause} timeChange={setLongPause} />
-                    </div>
-
-                </div>
-                <div className="flex justify-center items-center mt-[2rem]">
-                    <button type="button" onClick={saveSettings} className="text-[2rem] text-[#3F7BD4] hover:text-[#FFFFFF] hover:bg-[#C8DEFE] border border-[#C8DEFE] px-[2rem]">ok !</button>
-                    <button type="button" onClick={closePopup} className="text-[2rem] text-[#3F7BD4] hover:text-[#FFFFFF] hover:bg-[#C8DEFE] border border-[#C8DEFE] px-[2rem]">cancel...</button>
+                <div className="flex justify-center items-center mt-[2rem] gap-2">
+                    <button type="button" onClick={saveSettings} className="text-[2rem] font-kiwisoda text-[#3F7BD4] hover:text-[#FFFFFF] bg-[#FFFFFF] hover:bg-[#C8DEFE] border border-[#C8DEFE] rounded-[0.5rem] px-[2rem] w-15">ok !</button>
+                    <button type="button" onClick={closePopup} className="text-[2rem] font-kiwisoda text-[#3F7BD4] hover:text-[#FFFFFF] bg-[#FFFFFF]  hover:bg-[#C8DEFE] border border-[#C8DEFE] rounded-[0.5rem] px-[2rem] w-15">cancel...</button>
                 </div>
             </div >
         </div >

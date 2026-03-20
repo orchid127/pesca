@@ -38,7 +38,7 @@ function SignIn() {
                     body: JSON.stringify(values)
                 });
 
-                const data = await response.text();
+                response.text();
                 navigate("/profile");
 
             } catch (error) {
@@ -50,36 +50,36 @@ function SignIn() {
     }
 
     return (
-        <div className="flex justify-center">
-            <div className="flex flex-col p-7 border border-[#EA5DA9] bg-[#F8C2DF]">
-                <div className="">
-                    <p className="text-[2rem] font-bold">welcome back !</p>
-                    <p className="text-[1.5rem] mt-[-1rem]">please enter your details.</p>
+        <div className="flex flex-col h-[100%] w-[100%] p-5">
+            <div className="flex flex-col items-center justify-center h-[100%] w-[100%] p-7 border border-[#F7C0DD] border-[2px] rounded-[10px]">
+                <div className="text-center">
+                    <p className="text-[4rem] text-[#EA5DA9] font-bold font-kiwisoda">welcome back !</p>
+                    <p className="text-[1.5rem] text-[#EA5DA9] mt-[-2rem] font-arialnarrow">please enter your details.</p>
                 </div>
                 <div className="flex flex-col mt-2 gap-2">
                     <form action="" onSubmit={handleSubmit} className="flex flex-col">
                         <div className="flex flex-col">
-                            <label htmlFor="email">email</label>
+                            <label htmlFor="email" className="text-[1.5rem] font-arialnarrow text-[#3F7BD4]">email</label>
                             <input type="mail" name="email" placeholder="enter your email" onChange={handleInput} />
                             {errors.email && <span className="text-[#3F7BD4]">{errors.email}</span>}
                         </div>
                         <div className="flex flex-col">
-                            <label htmlFor="password">password</label>
+                            <label htmlFor="password" className="text-[1.5rem] font-arialnarrow text-[#3F7BD4]">password</label>
                             <input type="password" name="password" placeholder="enter your password" onChange={handleInput} />
                             {errors.password && <span className="text-[#3F7BD4]">{errors.password}</span>}
                         </div>
-                        <div className="">
-                            <button type="submit" className="p-3 w-full text-white hover:text-[#3F7BD4] bg-[#EA5DA9] hover:bg-[#C8DEFE]">sign in</button>
+                        <div className="mt-2">
+                            <button type="submit" className="p-1.5 w-full font-kiwisoda text-[2rem] text-[#3F7BD4] hover:text-[#FFFFFF] hover:bg-[#C8DEFE] border border-[#C8DEFE] rounded-[0.5rem]">sign in !</button>
                         </div>
                     </form>
 
                     <div className="flex items-center gap-5">
-                        <div>
-                            <input type="checkbox" id="remember" />
-                            <label htmlFor="remember">remember me</label>
+                        <div className="">
+                            <input type="checkbox" id="remember" className="mr-1 border border-[#3F7BD4]" />
+                            <label htmlFor="remember" className="font-arialnarrow text-[#3F7BD4]">remember me</label>
                         </div>
                         <div className="flex justify-end">
-                            <Link to="/sign-up" className="flex justify-end text-[#EA5DA9] hover:text-[#3F7BD4]">don't have an account? <span className="font-bold ml-2">sign up</span></Link>
+                            <Link to="/sign-up" className="flex justify-end text-[#3F7BD4] font-arialnarrow">don't have an account? <span className="font-bold ml-2 font-arialnarrow hover:text-[#EA5DA9]">sign up</span></Link>
                         </div>
                     </div>
                 </div>

@@ -20,9 +20,9 @@ function SettingsControl({ time, timeChange }: SettingsControlProps) {
     }
 
     return (
-        <div className="flex justify-center items-center p-[0.25rem] w-[8rem] text-[1.5rem] text-[#EA5DA9] border border-[#EA5DA9] rounded-full">
+        <div className="flex justify-center items-center p-[0.25rem] w-[8rem] text-[1.5rem] text-[#EA5DA9] border border-[#EA5DA9] rounded-full gap-1">
             <button onClick={decrementTime} className="grow rounded-full hover:bg-[#F8C2DF]">-</button>
-            <p className="">{time}</p>
+            <p className="font-arialnarrow">{time}</p>
             <button onClick={incrementTime} className="grow rounded-full hover:bg-[#F8C2DF]">+</button>
         </div>
     )
