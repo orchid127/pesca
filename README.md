@@ -15,7 +15,7 @@ _pesca_ is a web application inspired by the Pomodoro technique, allowing users 
 ## to do list
 - [x] style components
 - [x] add logs to user profile
-- [ ] add possibility to see your own password (in progress)
+- [x] add possibility to see your own password
 - [ ] fix pomodoro timer cycle
 - [ ] update navbar when a user logs in
 - [ ] add notifications when timer is over

@@ -39,8 +39,8 @@ function SessionList() {
             <table className="w-full font-arialnarrow text-[#3F7BD4] ">
                 <thead>
                     <tr className="h-[4rem] text-[1.5rem]">
-                        <th className=" w-[50%]">Session length</th>
-                        <th className="">Date</th>
+                        <th className=" w-[50%]">session length</th>
+                        <th className="">date</th>
                     </tr>
                 </thead>
                 <tbody>

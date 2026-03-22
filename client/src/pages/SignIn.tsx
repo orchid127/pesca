@@ -12,6 +12,15 @@ function SignIn() {
 
     const [values, setValues] = useState({ email: "", password: "" });
     const [errors, setErrors] = useState<SigninErrors>({});
+    const [inputType, setInputType] = useState("password")
+
+    const togglePasswordVisibility = () => {
+        if (inputType === "password") {
+            setInputType("text");
+        } else if (inputType === "text") {
+            setInputType("password");
+        }
+    }
 
     // saves values of the other inputs when changing an input
     const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,34 +62,36 @@ function SignIn() {
         <div className="flex flex-col h-[100%] w-[100%] p-5">
             <div className="flex flex-col items-center justify-center h-[100%] w-[100%] p-7 border border-[#F7C0DD] border-[2px] rounded-[10px]">
                 <div className="text-center">
-                    <p className="text-[4rem] text-[#EA5DA9] font-bold font-kiwisoda">welcome back !</p>
-                    <p className="text-[1.5rem] text-[#EA5DA9] mt-[-2rem] font-arialnarrow">please enter your details.</p>
+                    <p className="text-[4rem] lg:text-[6rem] text-[#EA5DA9] font-bold font-kiwisoda">welcome back !</p>
+                    <p className="text-[1.5rem] lg:text-[2rem] text-[#EA5DA9] mt-[-2rem] lg:mt-[-3rem] font-arialnarrow">please enter your details.</p>
                 </div>
-                <div className="flex flex-col mt-2 gap-2">
-                    <form action="" onSubmit={handleSubmit} className="flex flex-col">
+                <div className="flex flex-col mt-2 gap-2 min-w-[20rem]">
+                    <form action="" onSubmit={handleSubmit} className="flex flex-col w-full">
                         <div className="flex flex-col">
-                            <label htmlFor="email" className="text-[1.5rem] font-arialnarrow text-[#3F7BD4]">email</label>
-                            <input type="mail" name="email" placeholder="enter your email" onChange={handleInput} />
-                            {errors.email && <span className="text-[#3F7BD4]">{errors.email}</span>}
+                            <label htmlFor="email" className="text-[1.5rem] lg:text-[2rem] font-bold font-arialnarrow text-[#3F7BD4]">email</label>
+                            <div className="flex flex-row text-[1.3rem] lg:text-[1.5rem] font-arialnarrow text-[#3F7BD4] border border-[#C8DEFE] rounded-[0.5rem] p-1">
+                                <input type="mail" name="email" placeholder="enter your email" onChange={handleInput} className="w-full" />
+                            </div>
+                            {errors.email && <span className="font-arialnarrow text-[#3F7BD4]">{errors.email}</span>}
                         </div>
+
                         <div className="flex flex-col">
-                            <label htmlFor="password" className="text-[1.5rem] font-arialnarrow text-[#3F7BD4]">password</label>
-                            <input type="password" name="password" placeholder="enter your password" onChange={handleInput} />
-                            {errors.password && <span className="text-[#3F7BD4]">{errors.password}</span>}
+                            <label htmlFor="password" className="text-[1.5rem] lg:text-[2rem] font-bold font-arialnarrow text-[#3F7BD4]">password</label>
+                            <div className="flex flex-row text-[1.3rem] lg:text-[1.5rem] font-arialnarrow text-[#3F7BD4] border border-[#C8DEFE] rounded-[0.5rem] gap-2 p-1">
+                                <input type={inputType} name="password" id="password" placeholder="enter your password" onChange={handleInput} className="w-[80%]" />
+                                <button type="button" onClick={togglePasswordVisibility} className="hover:bg-[#C8DEFE] text-[1.2rem] w-[20%]">{inputType === "password" ? "show" : "hide"}</button>
+                            </div>
+                            {errors.password && <span className="font-arialnarrow text-[#3F7BD4] text-[1.1rem]">{errors.password}</span>}
                         </div>
+
                         <div className="mt-2">
                             <button type="submit" className="p-1.5 w-full font-kiwisoda text-[2rem] text-[#3F7BD4] hover:text-[#FFFFFF] hover:bg-[#C8DEFE] border border-[#C8DEFE] rounded-[0.5rem]">sign in !</button>
                         </div>
+
                     </form>
 
-                    <div className="flex items-center gap-5">
-                        <div className="">
-                            <input type="checkbox" id="remember" className="mr-1 border border-[#3F7BD4]" />
-                            <label htmlFor="remember" className="font-arialnarrow text-[#3F7BD4]">remember me</label>
-                        </div>
-                        <div className="flex justify-end">
-                            <Link to="/sign-up" className="flex justify-end text-[#3F7BD4] font-arialnarrow">don't have an account? <span className="font-bold ml-2 font-arialnarrow hover:text-[#EA5DA9]">sign up</span></Link>
-                        </div>
+                    <div className="flex flex-row justify-center text-[1.2rem] lg:text-[1.5rem]">
+                        <Link to="/sign-up" className="text-[#3F7BD4] font-arialnarrow">don't have an account? <span className="underline font-arialnarrow hover:text-[#EA5DA9]">sign up</span></Link>
                     </div>
                 </div>
             </div>
