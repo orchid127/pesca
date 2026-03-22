@@ -32,8 +32,8 @@ function PopupForm({ isOpen, currWork, currPause, currLongPause, onClose, onSave
 
     // displayed
     return (
-        <div onClick={closePopup} className="flex fixed top-0 left-0 w-[100%] h-[100%] justify-center items-center">
-            <div onClick={(e) => e.stopPropagation()} className="p-[2.5rem] bg-[#E9EDF2]/25 border border-[#3F7BD4] backdrop-blur-lg rounded-[1.5rem] justify-center">
+        <div onClick={closePopup} className="flex fixed top-0 left-0 w-[100%] h-[100%] justify-center items-center backdrop-blur-sm">
+            <div onClick={(e) => e.stopPropagation()} className="p-[2.5rem] bg-[#F8C2DF]/25 border border-[#3F7BD4] backdrop-blur-md rounded-[1.5rem] justify-center">
                 <div className="flex flex-row gap-5 justify-center">
                     <div className="items-center gap-[5rem]">
                         <p className="text-[#3F7BD4] text-[2rem] font-arialnarrow pb-2">session</p>

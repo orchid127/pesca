@@ -13,9 +13,12 @@ _pesca_ is a web application inspired by the Pomodoro technique, allowing users 
 *the "sign in" page. after signing in, the user can have access to his profile and see logs of their past sessions (the profile page is not finished yet).*
 
 ## to do list
-- [ ] style components (in progress)
+- [x] style components
+- [x] add logs to user profile
 - [ ] add possibility to see your own password (in progress)
 - [ ] fix pomodoro timer cycle
 - [ ] update navbar when a user logs in
-- [ ] adding statistics and logs to user profile
+- [ ] add notifications when timer is over
+- [ ] reduce max number of entries in PomodoroLog and implement "see more" button
+- [ ] adding statistics user profile
 - [ ] implement account confirmation
