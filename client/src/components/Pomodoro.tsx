@@ -7,9 +7,6 @@ interface PomodoroProps {
 }
 
 function Pomodoro({ work, pause, longPause }: PomodoroProps) {
-    // testing
-    console.log("Pomodoro received:", work, pause, longPause);
-
     const [timeLeft, setTimeLeft] = useState(work * 60);
     const [isRunning, setIsRunning] = useState(false);
     const [mode, setMode] = useState("work");
@@ -17,6 +14,12 @@ function Pomodoro({ work, pause, longPause }: PomodoroProps) {
     const intervalRef = useRef<any>(null); // value of the timer
 
     const startTimer = () => {
+        if (mode === "work" && numberSessions < 4) {
+            setNumberSessions(numberSessions + 1);
+        } else {
+            setNumberSessions(0);
+        }
+
         // returns the time minus one second, each second
         intervalRef.current = setInterval(() => {
             setTimeLeft((prevTimeLeft) => {
@@ -28,20 +31,16 @@ function Pomodoro({ work, pause, longPause }: PomodoroProps) {
 
                 // change the timer
                 if (mode === "work") {
-                    // logs the session if in work mode
-                    logSession();
-                    setTimeLeft(pause * 60);
-
                     // checks if the user did 3 work sessions
                     if (numberSessions !== 3) {
                         setMode("pause");
-                        setNumberSessions(numberSessions + 1);
+                        setTimeLeft(pause * 60);
                     } else {
                         setMode("long pause");
+                        setTimeLeft(longPause * 60);
                         setNumberSessions(0);
                     }
-
-                    console.log(numberSessions);
+                    setIsRunning(false);
                 }
                 else {
                     setTimeLeft(work * 60);
@@ -62,6 +61,8 @@ function Pomodoro({ work, pause, longPause }: PomodoroProps) {
     };
 
     const startPauseTimer = () => {
+        console.log("test 2 number sessions : ", numberSessions);
+
         if (isRunning) {
             pauseTimer();
         } else {
@@ -76,19 +77,29 @@ function Pomodoro({ work, pause, longPause }: PomodoroProps) {
         if (mode === "work") {
             setTimeLeft(work * 60);
         }
-        else {
+        else if (mode === "pause") {
             setTimeLeft(pause * 60);
+        } else {
+            setTimeLeft(longPause * 60);
         }
 
     }
 
     const skipTimer = () => {
+        console.log("test number sessions : ", numberSessions);
         clearInterval(intervalRef.current);
         setIsRunning(false);
 
         if (mode === "work") {
-            setMode("pause");
-            setTimeLeft(pause * 60);
+            if (numberSessions < 3) {
+                setNumberSessions(numberSessions + 1);
+                setMode("pause");
+                setTimeLeft(pause * 60);
+            } else {
+                setNumberSessions(0);
+                setMode("long pause");
+                setTimeLeft(longPause * 60);
+            }
         }
         else {
             setMode("work");
@@ -124,7 +135,7 @@ function Pomodoro({ work, pause, longPause }: PomodoroProps) {
             <div className="mt-auto m-5">
                 <div className="text-[#3F7BD4] text-[12.5rem] md:text-[15rem] lg:text-[20rem] xl:text-[25rem] -mt-10 leading-none">
                     <span className="font-arialnarrow font-bold italic">{String(Math.floor(timeLeft / 60)).padStart(2, "0")}</span>
-                    <span className="font-arialnarrow font-bold italic mr-5">:</span>
+                    <span className="font-arialnarrow font-bold italic mr-5 md:mr-6 lg:mr-8 xl:mr-10">:</span>
                     <span className="font-arialnarrow">{String(timeLeft % 60).padStart(2, "0")}</span>
                 </div>
                 <div className="flex gap-5">
