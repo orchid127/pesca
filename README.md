@@ -14,9 +14,9 @@ The user can start work sessions, log them and see their progress by creating an
 *the "sign in" page. after signing in, the user can have access to his profile and see logs of their past sessions (the profile page is not finished yet).*
 
 ## specs
-I wanted a simple yet cute interface for the front-end, so I used React + Tailwind CCS for easy styling.
-I used NodeJs + PostgreSQL for handling accounts, and OpenCSV for eye tracking.
-I will use Docker + AWS to easily deploy this website.
+- I wanted a simple yet cute interface for the front-end, so I used **React + Tailwind CCS** for easy styling.
+- I used **NodeJs + PostgreSQL** for handling accounts, and **OpenCV** for eye tracking.
+- I will use **Docker + AWS** to easily deploy this website.
 
 
 ## to do list
